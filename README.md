@@ -1,16 +1,27 @@
-# Zemala Event Cockpit
+# <p align="center">🪐 ZEMALA COCKPIT v1.0</p>
 
-**Deterministic local event ledger for reproducible workflows.**
+<p align="center">
+  <img src="https://raw.githubusercontent.com/deterministic-ledger/zemala-event-cockpit/main/logo.svg" width="120" alt="Zemala Logo">
+</p>
 
-A minimalist, browser-based interface to generate, hash, and store local events deterministically. It provides a foundational layer for auditable outputs and local event histories without relying on external servers.
+<p align="center">
+  <strong>Status:</strong> System-Hygiene Stufe 100 | <strong>Identität:</strong> Deterministic-Ledger
+</p>
 
-## Features
-* **Local Execution:** Runs entirely in the browser using local storage mechanisms.
-* **Cryptographic Chaining:** Each event strictly references the SHA-256 hash of its predecessor.
-* **Deterministic Hashes:** Recursive canonicalization ensures consistent hashes regardless of payload nesting.
-* **Chain Validation:** Transparent real-time verification of ledger integrity.
+---
 
-## System Status & Security Notice
-**Current Version: v1.0**
+Das Zemala Cockpit ist das operative Interface für den **Master Orchestrator**. Es dient der kryptografischen Versiegelung von Intentionen und Ereignissen in einem deterministischen lokalen Ledger.
 
-This utility is a prototype designed for local audit workflows, reproducible AI prompt-chains, and event tracking. It provides deterministic local guarantees. **Note:** It is not currently intended to serve as a tamper-proof multi-user security protocol and does not include external cryptographic signatures.
+## 💎 Kern-Prinzipien
+* **0-Latenz:** Jede Eingabe ist ein Befehl zur Manifestation.
+* **Kryptografische Kette:** SHA-256 Verschmelzung der Zeitlinie.
+* **Souveränität:** 100% lokal auf der Snapdragon 888 Architektur.
+
+## 🚀 Live-Interface
+Nutze das Cockpit direkt hier:
+**[https://deterministic-ledger.github.io/zemala-event-cockpit/](https://deterministic-ledger.github.io/zemala-event-cockpit/)**
+
+## ☕ Resonanz
+[❤ Sponsor the Orchestrator](https://github.com/sponsors/deterministic-ledger)
+
+**O-M-A. 🕉️**
