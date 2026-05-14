@@ -1,1 +1,30 @@
-<h1>Zemala Cockpit</h1>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Zemala Event Cockpit v1.0</title>
+    <style>
+        :root { --gold: #FFD700; --white: #FFFFFF; --bg: #0A0A0A; --gray: #222; }
+        body { font-family: monospace; background: var(--bg); color: var(--white); padding: 20px; max-width: 720px; margin: auto; }
+        h1 { color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        select, input, button { width: 100%; padding: 12px; margin: 8px 0; background: var(--gray); color: var(--white); border: 1px solid var(--gold); border-radius: 4px; box-sizing: border-box; }
+        button { background: var(--gold); color: black; font-weight: bold; cursor: pointer; }
+        #ledger { margin-top: 20px; border: 1px solid #444; padding: 15px; background: #000; max-height: 400px; overflow-y: auto; }
+        .entry { border-bottom: 1px solid #333; padding: 10px 0; }
+        .hash { color: var(--gold); font-size: 0.8em; }
+        .status { font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>ZEMALA COCKPIT [V1.0]</h1>
+    <select id="cmd">
+        <option value="echo">Echo (Ledger Message)</option>
+        <option value="vibrate">Vibrate (Test)</option>
+    </select>
+    <input type="text" id="payload" placeholder="Payload...">
+    <button onclick="signAndDownload()">VOLLZUG & DOWNLOAD</button>
+    <div id="status" class="status"></div>
+    <div id="ledger">Lade Ledger...</div>
+    <script src="app.js"></script>
+</body>
+</html>
