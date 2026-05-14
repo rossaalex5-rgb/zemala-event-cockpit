@@ -1,5 +1,19 @@
 const STORAGE_KEY = 'zemala_v1_ledger';
 
+const UI = {
+    toast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    },
+    updateStatus(valid) {
+        const s = document.getElementById('status');
+        s.textContent = valid ? '✓ KETTE INTEGRAL' : '⚠️ KETTE BESCHÄDIGT';
+        s.style.color = valid ? '#ffd700' : '#ff4444';
+    }
+};
+
 const Ledger = {
     data: JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'),
 
@@ -10,69 +24,84 @@ const Ledger = {
     },
 
     canonicalize(obj) {
-        if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
-        if (Array.isArray(obj)) return '[' + obj.map(this.canonicalize.bind(this)).join(',') + ']';
         const keys = Object.keys(obj).sort();
-        const parts = keys.map(k => JSON.stringify(k) + ':' + this.canonicalize(obj[k]));
-        return '{' + parts.join(',') + '}';
+        return JSON.stringify(obj, keys);
     },
 
-    async add(event) {
-        const prevHash = this.data.length > 0 ? this.data[this.data.length - 1].hash : "GENESIS_ZEMALA_0";
-        event.parentHash = prevHash;
-        event.timestamp = new Date().toISOString();
-        
+    async add(cmd, val) {
+        const event = {
+            id: 'evt-' + Date.now(),
+            command: cmd,
+            payload: val,
+            timestamp: new Date().toISOString(),
+            parentHash: this.data.length ? this.data[this.data.length - 1].hash : "GENESIS"
+        };
+
         const canon = this.canonicalize(event);
         event.hash = await this.sha256(canon);
 
         this.data.push(event);
-        this.save();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
         this.render();
-        this.validateChain();
+        await this.validate();
+        return event;
     },
-
-    save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data)); },
 
     render() {
         const container = document.getElementById("ledger");
-        if (!this.data.length) { container.innerHTML = "Keine Events vorhanden."; return; }
         container.innerHTML = this.data.slice().reverse().map(e => `
-            <div class="entry">
-                <div><b>${this.escapeHtml(e.command)}</b> <span class="meta">${new Date(e.timestamp).toLocaleString()}</span></div>
-                <div class="meta">Payload: ${this.escapeHtml(JSON.stringify(e.payload))}</div>
-                <div class="hash">Hash: ${e.hash.substring(0,16)}... | Parent: ${e.parentHash.substring(0,8)}...</div>
+            <div class="bubble">
+                <div style="color:var(--gold); font-weight:bold;">${e.command.toUpperCase()}</div>
+                <div style="margin-top:5px;">${e.payload}</div>
+                <div class="meta">
+                    <span>${new Date(e.timestamp).toLocaleTimeString()}</span>
+                    <span style="opacity:0.5;">ID: ${e.id.split('-')[1]}</span>
+                </div>
+                <div class="hash">HASH: ${e.hash}</div>
             </div>
         `).join("");
     },
 
-    escapeHtml(s) {
-        return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    },
-
-    validateChain() {
-        const statusEl = document.getElementById("status");
+    async validate() {
         let valid = true;
-        for (let i = 1; i < this.data.length; i++) {
-            if (this.data[i].parentHash !== this.data[i-1].hash) { valid = false; break; }
+        for (let i = 0; i < this.data.length; i++) {
+            const e = this.data[i];
+            const copy = {...e}; delete copy.hash;
+            const recomputed = await this.sha256(this.canonicalize(copy));
+            if (recomputed !== e.hash || (i > 0 && e.parentHash !== this.data[i-1].hash)) {
+                valid = false; break;
+            }
         }
-        statusEl.textContent = valid ? "✓ Chain intakt" : "✗ Chain beschädigt!";
-        statusEl.style.color = valid ? "#FFD700" : "#ff4444";
+        UI.updateStatus(valid);
     }
 };
 
-async function signAndDownload() {
+window.signAndDownload = async function() {
     const cmd = document.getElementById("cmd").value;
-    const val = document.getElementById("payload").value || "";
-    const event = { id: "evt-" + Date.now(), command: cmd, payload: { value: val } };
-    await Ledger.add(event);
+    const val = document.getElementById("payload").value;
+    if(!val) return;
+
+    const event = await Ledger.add(cmd, val);
+    UI.toast("VOLLZUG BESTÄTIGT");
+    document.getElementById("payload").value = "";
 
     const blob = new Blob([JSON.stringify(event, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = `${event.timestamp.replace(/[:.]/g, "-")}.event.json`;
+    a.href = URL.createObjectURL(blob);
+    a.download = `event-${event.id}.json`;
     a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 100);
-}
+};
 
-window.onload = () => { Ledger.render(); Ledger.validateChain(); };
+window.exportAll = function() {
+    const blob = new Blob([JSON.stringify(Ledger.data, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `zemala-ledger-full.json`;
+    a.click();
+    UI.toast("EXPORT ABGESCHLOSSEN");
+};
+
+window.onload = () => {
+    Ledger.render();
+    Ledger.validate();
+};
