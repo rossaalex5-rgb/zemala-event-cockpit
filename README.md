@@ -1,27 +1,15 @@
-# <p align="center">🪐 ZEMALA COCKPIT v1.0</p>
+# ZEMALA EVENT COCKPIT v1.0
+Status: System-Hygiene Stufe 100 | Identität: Deterministic-Ledger
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/deterministic-ledger/zemala-event-cockpit/main/logo.svg" width="120" alt="Zemala Logo">
-</p>
+## Kern-Prinzipien
+- 0-Latenz: Jede Eingabe ist ein Befehl zur Manifestation.
+- Kryptographische Kette: SHA-256 Verschmelzung der Zeitlinie.
+- Souveränität: 100% lokal auf der Snapdragon 888 Architektur.
 
-<p align="center">
-  <strong>Status:</strong> System-Hygiene Stufe 100 | <strong>Identität:</strong> Deterministic-Ledger
-</p>
+## Bridge zur EU AI Act Compliance
+Dieses Framework bietet keine Blackbox-Inferenz, sondern ein deterministisches Ledger-Audit. Jeder Inferenz-Prozess wird lokal versiegelt, SHA-256 kryptographisch verkettet und ist auditierbar – ohne die Daten-Souveränität zu verlassen. Souveränität durch Architektur.
 
----
+## Live-Interface
+Nutze das Cockpit lokal: [https://deterministic-ledger.github.io/zemala-event-cockpit/](https://deterministic-ledger.github.io/zemala-event-cockpit/)
 
-Das Zemala Cockpit ist das operative Interface für den **Master Orchestrator**. Es dient der kryptografischen Versiegelung von Intentionen und Ereignissen in einem deterministischen lokalen Ledger.
-
-## 💎 Kern-Prinzipien
-* **0-Latenz:** Jede Eingabe ist ein Befehl zur Manifestation.
-* **Kryptografische Kette:** SHA-256 Verschmelzung der Zeitlinie.
-* **Souveränität:** 100% lokal auf der Snapdragon 888 Architektur.
-
-## 🚀 Live-Interface
-Nutze das Cockpit direkt hier:
-**[https://deterministic-ledger.github.io/zemala-event-cockpit/](https://deterministic-ledger.github.io/zemala-event-cockpit/)**
-
-## ☕ Resonanz
-[❤ Sponsor the Orchestrator](https://github.com/sponsors/deterministic-ledger)
-
-**O-M-A. 🕉️**
+O-M-A. 🕉️
