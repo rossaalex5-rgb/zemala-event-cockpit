@@ -1,15 +1,17 @@
-# ZEMALA EVENT COCKPIT v1.0
-Status: System-Hygiene Stufe 100 | Identität: Deterministic-Ledger
+# ZEMALA CORE
+Auditierbare digitale Intelligenz.
 
-## Kern-Prinzipien
-- 0-Latenz: Jede Eingabe ist ein Befehl zur Manifestation.
-- Kryptographische Kette: SHA-256 Verschmelzung der Zeitlinie.
-- Souveränität: 100% lokal auf der Snapdragon 888 Architektur.
+## Architekturprinzip
+Zemala Core löst das Problem der Black-Box-Entscheidungen durch konsequente Zustands-Synchronisation. Jeder Prozessschritt wird vor der Manifestation in einen auditierbaren Zustand überführt.
 
-## Bridge zur EU AI Act Compliance
-Dieses Framework bietet keine Blackbox-Inferenz, sondern ein deterministisches Ledger-Audit. Jeder Inferenz-Prozess wird lokal versiegelt, SHA-256 kryptographisch verkettet und ist auditierbar – ohne die Daten-Souveränität zu verlassen. Souveränität durch Architektur.
+## Zustandsmodell
+1. **Intention**: Der Befehl des Dirigenten.
+2. **Kondensation**: Wandlung in einen technischen Vektor.
+3. **Manifestation**: Die exekutive Ausführung.
+4. **Audit**: Automatisierte Rekonstruierbarkeit des Resultats.
 
-## Live-Interface
-Nutze das Cockpit lokal: [https://deterministic-ledger.github.io/zemala-event-cockpit/](https://deterministic-ledger.github.io/zemala-event-cockpit/)
+## Audit / Replay
+Durch die strikte Trennung von Logik und Zustand ist jeder Punkt der Systemgeschichte auditierbar.
 
-O-M-A. 🕉️
+## Positionierung
+Wir entwickeln Modelle für nachvollziehbare, auditierbare digitale Prozesse, bei denen Zustände und Entscheidungen dauerhaft rekonstruierbar bleiben.
